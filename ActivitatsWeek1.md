@@ -1,4 +1,4 @@
-##Activitat 1
+# Activitat 1
 
 • Les accions que es produeixen que no siguin explicades al pdf són les seguents:
 openat() -> obre els diferents fitxers d'on llegira i escriurà.
@@ -9,7 +9,7 @@ close() -> tanca el fitxer
 • Quantes crides a sistema es fan de cada tipus?
 Utilitzant la comanda strace -co strace.log cat test.c > test.out
 Veiem una taula amb les diferents crides a sistema, tal com aquesta:
-
+<pre><code>
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
   0.00    0.000000           0         3           read
@@ -28,4 +28,6 @@ Veiem una taula amb les diferents crides a sistema, tal com aquesta:
 ------ ----------- ----------- --------- --------- ----------------
 100.00    0.000000           0        41         1 total
 
-##Activitat 2
+</code></pre>
+
+# Activitat 2
