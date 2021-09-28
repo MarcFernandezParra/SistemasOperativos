@@ -13,16 +13,18 @@ Finalment printa els resultats.
 ## Corregir els warnings generats al compilar:
 
 Dona els següents warnings:
-
-	root@debian-gcaballe:/home/guillem# gcc act_av02_os.c -o act_av02_os.o
-	act_av02_os.c: In function ‘main’:
-	act_av02_os.c:38:3: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
-	38	|  printf("Time for 1 : %f\n",
-	act_av02_os.c:38:3: warning: incompatible implicit declaration of built-in function ‘printf’
+<pre><code>
+root@debian-gcaballe:/home/guillem# gcc act_av02_os.c -o act_av02_os.o
+act_av02_os.c: In function ‘main’:
+act_av02_os.c:38:3: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+38	|  printf("Time for 1 : %f\n",
+act_av02_os.c:38:3: warning: incompatible implicit declaration of built-in function ‘printf’
+</pre></code>
 
 Per a solucionar-ho, afegeixo la llibreria stdio.h tal com m'indica el compilador
-
-	#include <stdio.h>
+<pre><code>
+#include <stdio.h>
+</pre></code>
 
 ## Crida a sistema vs crida a procediment + cost d'aquestes:
 
@@ -31,10 +33,11 @@ En canvi, una crida a sistema apunta a un espai privilegiat, reservat pel kernel
 Aquesta separació aporta molta seguretat al sistema operatiu, però fa que una **crida al sistema sigui molt més costosa**.
 
 Es per això que en el codi d'exemple, la funcio foo() s'executa molt més ràpidament com es veu al output cuan executem el programa.
-
-	root@debian-gcaballe:/home/guillem# ./act_av02_os.o
-	Time for 1 : 57.875000
-	Time for 2 : 2.080000
+<pre><code>
+root@debian-gcaballe:/home/guillem# ./act_av02_os.o
+Time for 1 : 57.875000
+Time for 2 : 2.080000
+</pre></code>
 
 ## PD: Actualització de variables per entendre millor el programa
 
