@@ -1,7 +1,7 @@
 # Anàlisi del codi i explicació
 
 ## Anàlisi del codi i explicació
-E codi crida a la funció gettimeofday() varies vegades per guardar el timestamp actual en una variable (t1, t2)
+El codi crida a la funció gettimeofday() varies vegades per guardar el timestamp actual en una variable (t1, t2)
 
 Aquestes crides les fa abans i després d'executar la funcio 'getpid()' (que retorna el process ID) moltes vegades.
 Un cop te els dos valors d'abans i després, en calcula el temps d'execució mitjà.
@@ -13,6 +13,7 @@ Finalment printa els resultats.
 ## Corregir els warnings generats al compilar:
 
 Dona els següents warnings:
+
 <pre><code>
 root@debian-gcaballe:/home/guillem# gcc act_av02_os.c -o act_av02_os.o
 act_av02_os.c: In function ‘main’:
@@ -22,6 +23,7 @@ act_av02_os.c:38:3: warning: incompatible implicit declaration of built-in funct
 </pre></code>
 
 Per a solucionar-ho, afegeixo la llibreria stdio.h tal com m'indica el compilador
+
 <pre><code>
 #include <stdio.h>
 </pre></code>
@@ -33,6 +35,7 @@ En canvi, una crida a sistema apunta a un espai privilegiat, reservat pel kernel
 Aquesta separació aporta molta seguretat al sistema operatiu, però fa que una **crida al sistema sigui molt més costosa**.
 
 Es per això que en el codi d'exemple, la funcio foo() s'executa molt més ràpidament com es veu al output cuan executem el programa.
+
 <pre><code>
 root@debian-gcaballe:/home/guillem# ./act_av02_os.o
 Time for 1 : 57.875000
