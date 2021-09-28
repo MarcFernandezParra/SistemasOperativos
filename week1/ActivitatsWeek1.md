@@ -29,5 +29,3 @@ Veiem una taula amb les diferents crides a sistema, tal com aquesta:
 100.00    0.000000           0        41         1 total
 
 </code></pre>
-
-# Activitat 2
