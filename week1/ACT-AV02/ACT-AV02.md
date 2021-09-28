@@ -1,5 +1,6 @@
 # Anàlisi del codi i explicació
 
+## Anàlisi del codi i explicació
 E codi crida a la funció gettimeofday() varies vegades per guardar el timestamp actual en una variable (t1, t2)
 
 Aquestes crides les fa abans i després d'executar la funcio 'getpid()' (que retorna el process ID) moltes vegades.
@@ -9,7 +10,7 @@ Després fa exactament el mateix per la funcio 'foo()'.
 
 Finalment printa els resultats.
 
-# Corregir els warnings generats al compilar:
+## Corregir els warnings generats al compilar:
 
 Dona els següents warnings:
 
@@ -23,7 +24,7 @@ Per a solucionar-ho, afegeixo la llibreria stdio.h tal com m'indica el compilado
 
 	#include <stdio.h>
 
-# Crida a sistema vs crida a procediment + cost d'aquestes:
+## Crida a sistema vs crida a procediment + cost d'aquestes:
 
 Una crida a una funció, per exemple foo(), o una funció d'una llibreria (printf de stdio.h) són el mateix concepte: cridar un tros de codi de l'espai de l'usuari.
 En canvi, una crida a sistema apunta a un espai privilegiat, reservat pel kernel.
@@ -35,6 +36,6 @@ Es per això que en el codi d'exemple, la funcio foo() s'executa molt més ràpi
 	Time for 1 : 57.875000
 	Time for 2 : 2.080000
 
-#PD: Actualització de variables per entendre millor el programa
+## PD: Actualització de variables per entendre millor el programa
 
 Hem canviat els valors de avgT1 i avgT2 per avgSysCallTimeval i avgProcCallTimeval respectivament.
