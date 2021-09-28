@@ -14,7 +14,7 @@ long nanosec(struct timeval t){
 int main(){
   int i,j,res;
   long N_iterations=1000000;
-  float avgT1, avgT2;
+  float avgSysCallTimeval, avgProcCallTimeval;
   struct timeval t1, t2;
 
   res=gettimeofday(&t1,NULL); assert(res==0);//agafa el temps del inici del primer bucle 
@@ -23,7 +23,7 @@ int main(){
   }
   res=gettimeofday(&t2,NULL);   assert(res==0);//temps del final del bucle de getpid
 
-  avgT1 =
+  avgSysCallTimeval =
   (nanosec(t2) - nanosec(t1))/(N_iterations*1.0);//mitjana del bucle, sabem quant triga de mitjana getpid, funcio que utilitza crides a sistema
   /* Find average time for Function call */
   res=gettimeofday(&t1,NULL);  assert(res==0); //agafa el temps del inici del segon bucle
@@ -32,11 +32,11 @@ int main(){
   }
   res=gettimeofday(&t2,NULL);   assert(res==0);//temps del final del bucle funcio foo, fent crides a procediment
 
-  avgT2 =
+  avgProcCallTimeval =
   (nanosec(t2) - nanosec(t1))/(N_iterations*1.0);//mitjana del bucle, sabem quant triga de mitjana la funcio foo
   printf("Time for 1 : %f\n",
-  avgT1);
+  avgSysCallTimeval);
   printf("Time for 2 : %f\n",
-  avgT2);
+  avgProcCallTimeval);
 
 }
