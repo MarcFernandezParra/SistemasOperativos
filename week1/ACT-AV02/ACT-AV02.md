@@ -42,3 +42,7 @@ Es per això que en el codi d'exemple, la funcio foo() s'executa molt més ràpi
 ## PD: Actualització de variables per entendre millor el programa
 
 Hem canviat els valors de avgT1 i avgT2 per avgSysCallTimeval i avgProcCallTimeval respectivament.
+
+## Experiment.c
+
+Hem creat un programa que compara el temps d'execució entre una porció de codi que fa crides a sistema (fork i exec) i un altre que fa crides de procediment (printf). Es pot observar com les crides a sistema són més lentes.
