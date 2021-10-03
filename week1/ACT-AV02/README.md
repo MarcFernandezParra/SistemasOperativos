@@ -1,0 +1,1 @@
+# Explicació del experiment
