@@ -39,30 +39,30 @@ int main(int argc, char * argv[]) {
   WELCOME_MSG;
 
   while ((opt = getopt(argc, argv, OPTSTR)) != EOF)
-    switch (opt) {/*
-    case 'a':
-      if (add_pokemon() != EXIT_SUCCESS) {
-        perror(ERR_ADD_POKEMON);
-        exit(EXIT_FAILURE);
-      }
-      break;
-    case 's':
-      if (show_pokemon() != EXIT_SUCCESS) {
-        perror(ERR_SHOW_POKEMON);
-        exit(EXIT_FAILURE);
-      }
-      break;
-    case 'r':
-      if (remove_pokemon() != EXIT_SUCCESS) {
-        perror(ERR_REMOVE_POKEMON);
-        exit(EXIT_FAILURE);
-      }
-      break;
-    case 'h':
-    default:
-      usage(basename(argv[0]), opt);
-      
-      break;*/
+    switch (opt) {
+      case 'a':
+        if (add_pokemon(argv[3]) != EXIT_SUCCESS) {
+          perror(ERR_ADD_POKEMON);
+          exit(EXIT_FAILURE);
+        }
+        break;
+      case 's':
+        if (show_pokemon(atoi(argv[2])) != EXIT_SUCCESS) {
+          perror(ERR_SHOW_POKEMON);
+          exit(EXIT_FAILURE);
+        }
+        break;
+      case 'r':
+        if (remove_pokemon() != EXIT_SUCCESS) {
+          perror(ERR_REMOVE_POKEMON);
+          exit(EXIT_FAILURE);
+        }
+        break;
+      case 'h':
+      default:
+        usage(basename(argv[0]), opt);
+        
+        break;
     }
   return EXIT_SUCCESS;
 }
