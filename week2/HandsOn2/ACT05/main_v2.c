@@ -33,6 +33,7 @@ void usage(char * progname, int opt);
 
 int main(int argc, char * argv[]) {
   int opt;
+  char pokemon[200];
   opterr = 0;
   init_pokedex();
 
@@ -41,7 +42,20 @@ int main(int argc, char * argv[]) {
   while ((opt = getopt(argc, argv, OPTSTR)) != EOF)
     switch (opt) {
       case 'a':
-        if (add_pokemon(argv[3]) != EXIT_SUCCESS) {
+        if (argc != 6) {
+          perror(ERR_ADD_POKEMON);
+          exit(EXIT_FAILURE);
+        }
+
+        strcat(pokemon, argv[2]);
+        strcat(pokemon, " ");
+        strcat(pokemon, argv[3]);
+        strcat(pokemon, " ");
+        strcat(pokemon, argv[4]);
+        strcat(pokemon, " ");
+        strcat(pokemon, argv[5]);
+        
+        if (add_pokemon(pokemon) != EXIT_SUCCESS) {
           perror(ERR_ADD_POKEMON);
           exit(EXIT_FAILURE);
         }
@@ -64,7 +78,8 @@ int main(int argc, char * argv[]) {
         
         break;
     }
-  return EXIT_SUCCESS;
+    
+    return EXIT_SUCCESS;
 }
 
 void usage(char * progname, int opt) {
