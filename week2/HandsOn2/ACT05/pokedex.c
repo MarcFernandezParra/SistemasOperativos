@@ -61,7 +61,7 @@ int add_pokemon(char *line)
   readPoke.name = (char *)malloc((strlen(tmpName) + 1) * sizeof(char));
   strcpy(readPoke.name, tmpName);
 
-  fprintf(f, "%d, %s, %lf, %lf\n", readPoke.pokemon_id, readPoke.name, readPoke.height, readPoke.weight);
+  fprintf(f, "%d,%s,%lf,%lf\n", readPoke.pokemon_id, readPoke.name, readPoke.height, readPoke.weight);
   
   fclose(f);
 
