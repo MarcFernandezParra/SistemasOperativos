@@ -47,14 +47,8 @@ int main(int argc, char * argv[]) {
           exit(EXIT_FAILURE);
         }
 
-        strcat(pokemon, argv[2]);
-        strcat(pokemon, " ");
-        strcat(pokemon, argv[3]);
-        strcat(pokemon, " ");
-        strcat(pokemon, argv[4]);
-        strcat(pokemon, " ");
-        strcat(pokemon, argv[5]);
-        
+        sprintf(pokemon, "%s %s %s %s \n", argv[2],argv[3],argv[4],argv[5]);
+
         if (add_pokemon(pokemon) != EXIT_SUCCESS) {
           perror(ERR_ADD_POKEMON);
           exit(EXIT_FAILURE);
