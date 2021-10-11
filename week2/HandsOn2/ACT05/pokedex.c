@@ -56,11 +56,12 @@ int add_pokemon(char *line)
   FILE* f = fopen("./pokemon.csv", "a");
 
   char tmpName[200];
-
-  sscanf(line, "%d %s %lf %lf", &readPoke.pokemon_id, tmpName, &readPoke.height, &readPoke.weight);
-  readPoke.name = (char *)malloc((strlen(tmpName) + 1) * sizeof(char));
-  strcpy(readPoke.name, tmpName);
-
+  int pokemon_id;
+  double height, weight;
+  sscanf(line, "%d %s %lf %lf", &pokemon_id, tmpName, &height, &weight);
+  readPoke = new_pokemon(pokemon_id, tempName, height, weight);
+  
+  
   fprintf(f, "%d,%s,%lf,%lf\n", readPoke.pokemon_id, readPoke.name, readPoke.height, readPoke.weight);
   
   fclose(f);
