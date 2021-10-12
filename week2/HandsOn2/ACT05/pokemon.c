@@ -1,9 +1,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "pokemon.c"
+#include "pokemon.h"
 
-struct Pokemon {
+typedef struct Pokemon {
   int pokemon_id;
   char *name;
   double height;
@@ -11,24 +11,27 @@ struct Pokemon {
 };
 
 struct Pokemon new_pokemon(int pokemon_id, char *name, double height, double weight){
-    Pokemon pokemon = malloc(sizeof(struct pokemon));
+    struct Pokemon *pokemon = malloc(sizeof(struct Pokemon));
     pokemon->pokemon_id = pokemon_id;
     pokemon->name = name;
     pokemon->height = height;
     pokemon->weight = weight;
 
-    return pokemon;
+    return *pokemon;
 }
-char *pokemon_name(Pokemon pokemon){
+
+char *pokemon_name(struct Pokemon *pokemon) {
 	 return pokemon->name;
 }
-double pokemon_height(Pokemon pokemon){
+
+double pokemon_height(struct Pokemon *pokemon) {
 	 return pokemon->height;
 }
-double pokemon_weight(Pokemon pokemon){
+
+double pokemon_weight(struct Pokemon *pokemon) {
 	return pokemon->weight;
 }
-int pokemon_id(Pokemon pokemon)
-{
+
+int pokemon_id(struct Pokemon *pokemon) {
     return pokemon->pokemon_id;
 }

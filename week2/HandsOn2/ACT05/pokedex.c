@@ -5,8 +5,7 @@
 #include "pokedex.h"
 #include "pokemon.h"
 
-
-Pokemon pokedex[151];
+struct Pokemon pokedex[151];
 
 void readcsv(){  
   
@@ -16,7 +15,10 @@ void readcsv(){
     perror("El fitxer no s'obre");
   }
 
-  char *info;
+  char* name;
+  int pokemon_id;
+  double height, weight;
+
   char buf[151];
   int i = 0;
 
@@ -26,14 +28,12 @@ void readcsv(){
       buf[strlen (buf) - 1] = '\0';
     }
   
-    info = strtok(buf, ",");
-    pokedex[i].pokemon_id = atoi(info);
-    info = strtok(NULL, ",");
-    pokedex[i].name = strdup(info);
-    info = strtok(NULL, ",");
-    pokedex[i].weight = atof(info);
-    info = strtok(NULL, "\n");
-    pokedex[i].height = atof(info);
+    pokemon_id = atoi(strtok(buf, ","));
+    name = strdup(strtok(NULL, ","));
+    weight = atof(strtok(NULL, ","));
+    height = atof(strtok(NULL, ","));
+
+    &pokedex[i] = new_pokemon(pokemon_id, name, height, weight);
 
     i++;
 
@@ -55,10 +55,9 @@ int add_pokemon(char *line)
   int pokemon_id;
   double height, weight;
   sscanf(line, "%d %s %lf %lf", &pokemon_id, tmpName, &height, &weight);
-  readPoke = new_pokemon(pokemon_id, tempName, height, weight);
+  readPoke = new_pokemon(pokemon_id, tmpName, height, weight);
   
-  
-  fprintf(f, "%d,%s,%lf,%lf\n", readPoke.pokemon_id, readPoke.name, readPoke.height, readPoke.weight);
+  fprintf(f, "%d,%s,%lf,%lf\n", 1, pokemon_name(readPoke), pokemon_height(readPoke), pokemon_weight(readPoke));
   
   fclose(f);
 
