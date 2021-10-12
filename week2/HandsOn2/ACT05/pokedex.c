@@ -5,10 +5,10 @@
 #include "pokedex.h"
 #include "pokemon.h"
 
-struct Pokemon pokedex[151];
+Pokemon pokedex[151];
 
 void readcsv(){  
-  
+
   FILE* f = fopen("./pokemon.csv", "r");
 
   if(!f){
@@ -16,7 +16,7 @@ void readcsv(){
   }
 
   char* name;
-  int pokemon_id;
+  int id;
   double height, weight;
 
   char buf[151];
@@ -28,12 +28,17 @@ void readcsv(){
       buf[strlen (buf) - 1] = '\0';
     }
   
-    pokemon_id = atoi(strtok(buf, ","));
+    id = atoi(strtok(buf, ","));
     name = strdup(strtok(NULL, ","));
     weight = atof(strtok(NULL, ","));
     height = atof(strtok(NULL, ","));
 
-    &pokedex[i] = new_pokemon(pokemon_id, name, height, weight);
+    printf("%d\n", id);
+    printf("%lf\n", weight);
+    printf("%lf\n", height);
+    printf("%s\n", name);
+
+    pokedex[i] = new_pokemon(id, name, height, weight);
 
     i++;
 
