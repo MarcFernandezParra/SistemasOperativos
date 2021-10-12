@@ -11,19 +11,20 @@ struct Pokemon {
 };
 
 struct Pokemon new_pokemon(int pokemon_id, char *name, double height, double weight){
-	struct Pokemon new_poke;
-	new_poke.pokemon_id = pokemon_id;
-	new_poke.name = (char *)malloc((strlen(name)+1)*sizeof(char));
-	new_poke.height = height;
-	new_poke.weight = weight;
-	return new_poke;
+    Pokemon pokemon = malloc(sizeof(struct pokemon));
+    pokemon->pokemon_id = pokemon_id;
+    pokemon->name = name;
+    pokemon->height = height;
+    pokemon->weight = weight;
+
+    return pokemon;
 }
 char *pokemon_name(struct Pokemon pokemon){
-	return pokemon.name;
+	 return pokemon->name;
 }
 double pokemon_height(struct Pokemon pokemon){
-	return pokemon.height;
+	 return pokemon->height;
 }
 double pokemon_weight(struct Pokemon pokemon){
-	return pokemon.weight;
+	return pokemon->weight;
 }
