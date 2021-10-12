@@ -19,12 +19,16 @@ struct Pokemon new_pokemon(int pokemon_id, char *name, double height, double wei
 
     return pokemon;
 }
-char *pokemon_name(struct Pokemon pokemon){
+char *pokemon_name(Pokemon pokemon){
 	 return pokemon->name;
 }
-double pokemon_height(struct Pokemon pokemon){
+double pokemon_height(Pokemon pokemon){
 	 return pokemon->height;
 }
-double pokemon_weight(struct Pokemon pokemon){
+double pokemon_weight(Pokemon pokemon){
 	return pokemon->weight;
+}
+int pokemon_id(Pokemon pokemon)
+{
+    return pokemon->pokemon_id;
 }
