@@ -3,14 +3,10 @@
 #include <unistd.h>
 #include <string.h>
 #include "pokedex.h"
+#include "pokemon.h"
 
-struct pokemon {
-  int pokemon_id; 
-  char *name;
-  double height;
-  double weight;
-};
-struct pokemon pokedex[151];
+
+Pokemon pokedex[151];
 
 void readcsv(){  
   
@@ -51,7 +47,7 @@ void readcsv(){
 
 int add_pokemon(char *line) 
 { 
-  struct pokemon readPoke;
+  Pokemon readPoke;
   
   FILE* f = fopen("./pokemon.csv", "a");
 
@@ -71,10 +67,10 @@ int add_pokemon(char *line)
 
 int show_pokemon(int position) {
   printf("=====================\n");
-  printf("== id: %d\n", pokedex[position].pokemon_id);
-  printf("== name: %s\n", pokedex[position].name);
-  printf("== weight: %lf\n", pokedex[position].weight);
-  printf("== height: %lf\n", pokedex[position].height);
+  printf("== id: %d\n", pokemon_id(pokedex[position]));
+  printf("== name: %s\n", pokemon_name(pokedex[position]));
+  printf("== weight: %lf\n", pokemon_weight(pokedex[position]));
+  printf("== height: %lf\n", pokemon_height(pokedex[position]));
   printf("=====================\n");
   return EXIT_SUCCESS;
 }
