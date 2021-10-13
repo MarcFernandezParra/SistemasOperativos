@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include "pokedex.h"
 #include "pokemon.h"
+#include "pokedex.h"
 
 Pokemon pokedex[151];
 
@@ -33,11 +33,6 @@ void readcsv(){
     weight = atof(strtok(NULL, ","));
     height = atof(strtok(NULL, ","));
 
-    printf("%d\n", id);
-    printf("%lf\n", weight);
-    printf("%lf\n", height);
-    printf("%s\n", name);
-
     pokedex[i] = new_pokemon(id, name, height, weight);
 
     i++;
@@ -48,11 +43,9 @@ void readcsv(){
 
 }
 
-
-
 int add_pokemon(char *line) 
 { 
-  Pokemon readPoke;
+  Pokemon *readPoke;
   
   FILE* f = fopen("./pokemon.csv", "a");
 

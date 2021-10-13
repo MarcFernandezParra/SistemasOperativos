@@ -3,40 +3,37 @@
 #include <stdio.h>
 #include "pokemon.h"
 
-typedef struct Pokemon {
-  int pokemon_id;
-  char *name;
-  double height;
-  double weight;
+struct pokemon_info {
+		int pokemon_id;
+		char *name;
+		double height;
+		double weight;
 };
 
-struct Pokemon new_pokemon(int id, char *name, double height, double weight){
-    printf("%d\n", id);
-    printf("%lf\n", weight);
-    printf("%lf\n", height);
-    printf("%s\n", name);
+typedef struct pokemon_info *Pokemon;
 
-    struct Pokemon *pokemon = malloc(sizeof(struct Pokemon));
-    pokemon->pokemon_id = id;
-    pokemon->name = name;
-    pokemon->height = height;
-    pokemon->weight = weight;
+Pokemon new_pokemon(int pokemon_id, char *name, double height, double weight) {
+  Pokemon pokemon = malloc(sizeof(Pokemon));
+  pokemon->pokemon_id = pokemon_id;
+  pokemon->name = name;
+  pokemon->height = height;
+  pokemon->weight = weight;
 
-    return *pokemon;
+  return pokemon;
 }
 
-char *pokemon_name(struct Pokemon *pokemon) {
-	 return pokemon->name;
+char *pokemon_name(Pokemon pokemon) {
+  return pokemon->name;
 }
 
-double pokemon_height(struct Pokemon *pokemon) {
-	 return pokemon->height;
+double pokemon_height(Pokemon pokemon) {
+  return pokemon->height;
 }
 
-double pokemon_weight(struct Pokemon *pokemon) {
+double pokemon_weight(Pokemon pokemon) {
 	return pokemon->weight;
 }
 
-int pokemon_id(struct Pokemon *pokemon) {
-    return pokemon->pokemon_id;
+int pokemon_id(Pokemon pokemon) {
+  return pokemon->pokemon_id;
 }
