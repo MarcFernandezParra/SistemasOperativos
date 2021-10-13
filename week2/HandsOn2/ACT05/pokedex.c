@@ -7,7 +7,7 @@
 
 Pokemon pokedex[151];
 
-void readcsv(){  
+void readcsv() {
 
   FILE* f = fopen("./pokemon.csv", "r");
 
@@ -45,17 +45,17 @@ void readcsv(){
 
 int add_pokemon(char *line) 
 { 
-  Pokemon *readPoke;
+  Pokemon readPoke;
   
   FILE* f = fopen("./pokemon.csv", "a");
 
   char tmpName[200];
-  int pokemon_id;
+  int id;
   double height, weight;
-  sscanf(line, "%d %s %lf %lf", &pokemon_id, tmpName, &height, &weight);
-  readPoke = new_pokemon(pokemon_id, tmpName, height, weight);
+  sscanf(line, "%d %s %lf %lf", &id, tmpName, &height, &weight);
+  readPoke = new_pokemon(id, tmpName, height, weight);
   
-  fprintf(f, "%d,%s,%lf,%lf\n", 1, pokemon_name(readPoke), pokemon_height(readPoke), pokemon_weight(readPoke));
+  fprintf(f, "%d,%s,%lf,%lf\n", pokemon_id(readPoke), pokemon_name(readPoke), pokemon_height(readPoke), pokemon_weight(readPoke));
   
   fclose(f);
 

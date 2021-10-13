@@ -4,16 +4,14 @@
 #include "pokemon.h"
 
 struct pokemon_info {
-		int pokemon_id;
-		char *name;
-		double height;
-		double weight;
+  int pokemon_id;
+  char *name;
+  double height;
+  double weight;
 };
 
-typedef struct pokemon_info *Pokemon;
-
 Pokemon new_pokemon(int pokemon_id, char *name, double height, double weight) {
-  Pokemon pokemon = malloc(sizeof(Pokemon));
+  Pokemon pokemon = malloc(sizeof(struct pokemon_info));
   pokemon->pokemon_id = pokemon_id;
   pokemon->name = name;
   pokemon->height = height;
