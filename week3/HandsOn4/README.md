@@ -42,4 +42,5 @@ Al fer CTRL+Z els dos procesos passen a l'estat Stopped, però al executar "bg",
 
         return 0;
     }
-        
+
+**L'exercici està resolt a l'arxiu act3.c d'aquest repositori** (La comanda execv no inclou el path, per tant hem afegit la direcció on es troba la comanda "find")
