@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
             } else {
 
                 // Mort Ned
-                wait(NULL);
+                waitpid(robb, 0, WUNTRACED);
                 printf("Sóc en Ned amb pid = %d i m’acaben de %s\n", getpid(), causaNed);
                 exit(0);
 
@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
         } else {
 
             // Mort Ricard
-            wait(NULL);
+            waitpid(ned, 0, WUNTRACED);
             printf("En resum el meu fill Robb ha estat %s, en Ned %s i jo en Rickard amb pid = %d i m’han executat.\n", causaRobb, causaNed, getpid());
             exit(0);
 
