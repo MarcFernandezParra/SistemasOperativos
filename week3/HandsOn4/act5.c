@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
 
     } else {
 
-        wait(NULL);
+        waitpid(rickard, 0, WUNTRACED);
         printf("The winter is coming!!!!!\n");
 
     }
