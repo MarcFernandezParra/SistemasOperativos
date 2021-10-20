@@ -73,3 +73,7 @@ El programa fa un fork i es divideix en dos blocs: pare i fill. Els dos blocs tr
         exit(0);
 
 5. Una vegada ha acabat el procés fill, el pare finalitza la seva execució amb un últim printf.
+
+### 5- Programeu un programa pare, fill net que tingui la següent sortida (mantenint l’ordre). A més a més els fills, hauran de generar un enter aleatori entre els valors 0,1 i 2. El 0=apunyalat, 1=decapitat.
+
+**L'exercici està resolt a l'arxiu act5.c d'aquest repositori**
