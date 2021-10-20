@@ -5,6 +5,7 @@
 La comanda yes fa un output de l'string "y" repetidament fins que es mata el procés. Amb "> /dev/null", estem redirigint aquest output a l'arxiu /dev/null, que descarta tota aquesta informació. <br>
 Al fer CTRL+Z els dos procesos passen a l'estat Stopped, però al executar "bg", el procés "sleep" entra en estat Interrumpible Sleep, mentres que el "yes > /dev/null" entra en estat Running.
 
+
 ### 2- Modificar aquest procés per obtenir una sortida indicant Hola sóc el procés pare i Hola sóc el procés fill.
 
     #include <sys/types.h>
@@ -18,6 +19,7 @@ Al fer CTRL+Z els dos procesos passen a l'estat Stopped, però al executar "bg",
     }
     
 **L'exercici està resolt a l'arxiu act2.c d'aquest repositori**
+
 
 ### 3- Modificar aquest exemple fent anar la funció execv()
 
@@ -44,6 +46,7 @@ Al fer CTRL+Z els dos procesos passen a l'estat Stopped, però al executar "bg",
     }
 
 **L'exercici està resolt a l'arxiu act3.c d'aquest repositori** (La comanda execv no inclou el path, per tant hem afegit la direcció on es troba la comanda "find")
+
 
 ### 4- Explica el funcionament del programa. Indicant quants senyals s'envien, quin procés envia el senyal, i on l'envia.
 
@@ -73,6 +76,7 @@ El programa fa un fork i es divideix en dos blocs: pare i fill. Els dos blocs tr
         exit(0);
 
 5. Una vegada ha acabat el procés fill, el pare finalitza la seva execució amb un últim printf.
+
 
 ### 5- Programeu un programa pare, fill net que tingui la següent sortida (mantenint l’ordre). A més a més els fills, hauran de generar un enter aleatori entre els valors 0,1 i 2. El 0=apunyalat, 1=decapitat.
 
