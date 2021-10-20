@@ -44,3 +44,32 @@ Al fer CTRL+Z els dos procesos passen a l'estat Stopped, però al executar "bg",
     }
 
 **L'exercici està resolt a l'arxiu act3.c d'aquest repositori** (La comanda execv no inclou el path, per tant hem afegit la direcció on es troba la comanda "find")
+
+### 4- Explica el funcionament del programa. Indicant quants senyals s'envien, quin procés envia el senyal, i on l'envia.
+
+El programa fa un fork i es divideix en dos blocs: pare i fill. Els dos blocs treballen a la vegada, pero el procés fill s'atura, esperant a que el pare el desperti amb una signal. El procés pas a pas es el següent:
+
+1. Pare i fill printen per pantalla el seu PID a la vegada:
+       
+        printf("Hola soc el pare i el meu pid=%d \n", getpid());
+
+        printf("Hola soc el fill i el meu pid=%d \n", getpid());
+        
+2. Una vegada han printat el seu missatge, el fill s'atura i el pare espera a que el fill s'aturi. No sabem qui acaba primer, per tant s'han de sincronitzar.
+
+        kill(getpid(), SIGSTOP); // El fill s'atura
+
+        waitpid(-1, 0, WUNTRACED); // El pare espera al fill
+        
+3. Una vegada el pare rep la senyal de que el fill s'ha aturat, continua la seva execució. Printa per pantalla un altre missatge i envia una senyal per continuar al seu fill. Per últim, espera a que el fill acabi la seva execució:
+
+        printf("Hola soc el pare i he de continuar... però millor que ho faci el meu fill xD\n ...Enviant SIGCONT...\n");
+        kill(i, SIGCONT);
+        waitpid(-1, 0, WUNTRACED);
+        
+4. El fill printa per pantalla un últim missatge i finalitza la seva execució:
+
+        printf("Hola soc el fill he rebut SIGCONT... ha treballar\n");
+        exit(0);
+
+5. Una vegada ha acabat el procés fill, el pare finalitza la seva execució amb un últim printf.
