@@ -55,9 +55,11 @@ int main(int argc, char *argv[]) {
 
                             raise(SIGSTOP);
 
+                            srand(time(NULL));
                             throw = (rand() % 10) + 1;
 
                             if (throw == 2 || throw == 7) {
+                                printf("Exit\n");
                                 exit(throw);   
                             }
 
@@ -70,10 +72,11 @@ int main(int argc, char *argv[]) {
                         // Main process
                         printf("Wild pokemon appeared! [%d] >\n", childProcess);
                         show_pokemon(rand() % 151);
-
+    
                         waitpid(-1, 0, WUNTRACED); // Waits for child to pause
 
                         while (encounterEndFlag == 1) {
+                            printf("P: Throw Pokeball, B:Throw Berry, R:Run > ");
                             scanf(" %c", &choice);
                         
                             switch(choice) {
@@ -81,6 +84,8 @@ int main(int argc, char *argv[]) {
                                 case 'P':
                                     kill(childProcess, SIGCONT);
                                     waitpid(-1, &status, WUNTRACED);
+                                    
+                                    status = status >> 8;
 
                                     if (status == 2) {
                                         printf("CAPUTRAO!!!\n");
