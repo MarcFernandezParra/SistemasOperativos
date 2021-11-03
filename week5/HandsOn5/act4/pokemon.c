@@ -6,7 +6,7 @@
 struct pokemon_info {
   int pokemon_id;
   char *name;
-  char **type;
+  char **types;
   int total;
   int hp;
   int attack;
@@ -20,7 +20,7 @@ struct pokemon_info {
   int captured;
 };
 
-Pokemon new_pokemon(int pokemon_id, char *name, char **type, 
+Pokemon new_pokemon(int pokemon_id, char *name, char **types, 
                     int total, int hp, int attack, int defense, 
                     int spAttack, int spDefense, int speed, int generation, 
                     int legendary, int seen, int captured) {
@@ -28,7 +28,7 @@ Pokemon new_pokemon(int pokemon_id, char *name, char **type,
 
   pokemon->pokemon_id = pokemon_id;
   pokemon->name = name;
-  pokemon->type = type;
+  pokemon->types = types;
   pokemon->total = total;
   pokemon->hp = hp;
   pokemon->attack = attack;
@@ -52,8 +52,8 @@ char *pokemon_name(Pokemon pokemon) {
   return pokemon->name;
 }
 
-char *pokemon_type(Pokemon pokemon) {
-  return pokemon->type;
+char **pokemon_types(Pokemon pokemon) {
+  return pokemon->types;
 }
 
 int pokemon_total(Pokemon pokemon) {
