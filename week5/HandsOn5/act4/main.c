@@ -21,8 +21,8 @@ char *args[] = {"pokemon", "pokemon", NULL};
  
 int main(int argc, char *argv[]) {
 
-    int endFlag = 1;
-    int childProcess;
+    int endFlag = 1, encounterEndFlag = 1;
+    int childProcess, status, throw = 0;
 
     srand(time(NULL));
     init_pokedex();
@@ -38,14 +38,30 @@ int main(int argc, char *argv[]) {
             scanf(" %c", &choice);
  
             switch (choice) {
+
                 case 'Q':
                     endFlag = 0;
                     break;
-                case 'E':
 
-                    if ((childProcess = fork()) == 0) {
+                case 'E':
+                
+                    childProcess = fork();
+
+                    if (childProcess == 0) {
 
                         // Child process
+
+                        while (1) {
+
+                            raise(SIGSTOP);
+
+                            throw = (rand() % 10) + 1;
+
+                            if (throw == 2 || throw == 7) {
+                                exit(throw);   
+                            }
+
+                        }
 
                         exit(0);
 
@@ -54,11 +70,44 @@ int main(int argc, char *argv[]) {
                         // Main process
                         printf("Wild pokemon appeared! [%d] >\n", childProcess);
                         show_pokemon(rand() % 151);
+
+                        waitpid(-1, 0, WUNTRACED); // Waits for child to pause
+
+                        while (encounterEndFlag == 1) {
+                            scanf(" %c", &choice);
+                        
+                            switch(choice) {
+
+                                case 'P':
+                                    kill(childProcess, SIGCONT);
+                                    waitpid(-1, &status, WUNTRACED);
+
+                                    if (status == 2) {
+                                        printf("CAPUTRAO!!!\n");
+                                        encounterEndFlag = 0;
+                                    } else if (status == 7) {
+                                        printf("ESCAPAO...\n");
+                                        encounterEndFlag = 0;
+                                    } else {
+                                        printf("Se ha salido de la bola :peeposad:\n");
+                                    }
+                                    
+                                    break;
+
+                                case 'B':
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }
+
                         wait(NULL);
 
                     }
 
                     break;
+
                 default:
                     sprintf(s, "%s!!!!Invalid option. Try again. %s\n", KRED, KNRM);
                     if (write(1, s, strlen(s)) < 0) perror("Error writting invalid option");
