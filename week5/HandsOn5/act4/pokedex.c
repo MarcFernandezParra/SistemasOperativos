@@ -16,7 +16,7 @@ void readcsv() {
   }
 
   char *name;
-  char *types[2];
+  char **types;
   int id, total, hp, attack, defense, spAttack, spDefense, speed, generation, legendary;
   char buf[151];
   int i;
@@ -26,6 +26,8 @@ void readcsv() {
     if ((strlen(buf)>0) && (buf[strlen (buf) - 1] == '\n')) {
       buf[strlen (buf) - 1] = '\0';
     }
+
+    types = (char **)malloc(2 * sizeof(char*));
   
     id = atoi(strtok(buf, ","));
     name = strdup(strtok(NULL, ","));
@@ -43,7 +45,7 @@ void readcsv() {
 
     pokedex[i] = new_pokemon(id, name, types, total, hp, attack, defense, 
                              spAttack, spDefense, speed, generation, 
-                             legendary, 0, 0);    
+                             legendary, 0, 0);
 
     i++;
 
