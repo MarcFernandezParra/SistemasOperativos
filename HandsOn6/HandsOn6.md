@@ -45,3 +45,12 @@ Activitat 3
  - No comparteix, per això necessita que la pipe buffer estigui al kernel
 
 Activitat 4
+
+TEST
+
+Crea una pipe i fa un fork.
+El fill tanca la lectura de la pipe i escriu 'msg1' mitjançant un buffer.
+Després escriu un altre 'msg2'.
+Però no arriba a tancar el fd.
+
+Mentrestant, el pare tanca fd d'escriptura i llegeix 100 chars de la pipe.
