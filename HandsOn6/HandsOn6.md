@@ -42,6 +42,6 @@ Activitat 2
 
 Activitat 3
  - Les dades escrites a la pipe van escrites al pipe buffer, que segons la man page de pipe, tipicament son 64 kb
- - No //preguntar ? 
+ - No comparteix, per això necessita que la pipe buffer estigui al kernel
 
 Activitat 4
