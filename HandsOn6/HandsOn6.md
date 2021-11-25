@@ -53,3 +53,56 @@ No arriba a tancar la pipe per la linea comentada.
 Mentrestant, el pare tanca l'escritura de la pipe, i mentre hi hagi missatge el llegeix i l'escriu per pantalla. El problema es que el fill al no tancar mai la seva escriptura, el pare es quedara bloquejat esperant resposta.
 Per tant, la linea comentada fa que el pare es desbloqueji i continuï sortint del bucle, i escriurà "No more messages :("
 Tot i aixó, aquest programa deixará un zombie, ja que el fill no surt mai del while(1);
+
+Activitat 5
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <signal.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <errno.h>
+
+ 
+
+int main(int argc, char *argv[])
+
+{
+
+    int fd[2];
+    char s[100];
+    char *p1[] = {"ls", NULL};
+    char *p2[] = {"wc", "-l", NULL};
+
+
+    if (pipe(fd)<0)
+    {
+        perror("Error de creació del pipe fd[]");
+        exit(-1);
+    }
+
+
+    int pid;
+
+    switch (pid = fork()){
+    case -1:
+        perror("Error fork()");
+        exit(-2);
+        break;
+    case 0:
+        close(fd[0]);
+        dup2(fd[1], 1);
+        execvp("ls",p1);
+    default:
+        close(fd[1]);
+        dup2(fd[0],0);
+        execvp("wc",p2);
+    }
+
+}
+
+```
+
+Activitat 6
