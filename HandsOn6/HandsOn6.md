@@ -46,11 +46,10 @@ Activitat 3
 
 Activitat 4
 
-TEST
-
 Crea una pipe i fa un fork.
 El fill tanca la lectura de la pipe i escriu 'msg1' mitjançant un buffer.
 Després escriu un altre 'msg2'.
-Però no arriba a tancar el fd.
-
-Mentrestant, el pare tanca fd d'escriptura i llegeix 100 chars de la pipe.
+No arriba a tancar la pipe per la linea comentada.
+Mentrestant, el pare tanca l'escritura de la pipe, i mentre hi hagi missatge el llegeix i l'escriu per pantalla. El problema es que el fill al no tancar mai la seva escriptura, el pare es quedara bloquejat esperant resposta.
+Per tant, la linea comentada fa que el pare es desbloqueji i continuï sortint del bucle, i escriurà "No more messages :("
+Tot i aixó, aquest programa deixará un zombie, ja que el fill no surt mai del while(1);
