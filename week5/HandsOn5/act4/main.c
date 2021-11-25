@@ -25,14 +25,12 @@ void throwPokeball(){
 
     srand(time(NULL));
     int throw = (rand() % 10) + 1;
-    printf("RANDOM %d\n",throw);
     for(int i = 0; i<=numberOfProb; i++){
         if(probabilities[i] == throw){
             throw = 2;
         }
     }
     if (throw == 2 || throw == 7) {
-        printf("Exit\n");
         exit(throw);   
     }
 }
@@ -89,7 +87,6 @@ int main(int argc, char *argv[]) {
                         signal(SIGUSR1, throwPokeball);
                         signal(SIGUSR2, throwBerry);
                         while (1) {
-                            
                             raise(SIGSTOP);
                         }
 
@@ -116,7 +113,7 @@ int main(int argc, char *argv[]) {
                                     waitpid(-1, &status, WUNTRACED);
                                     
                                     status = status >> 8;
-                                    printf("status %d\n",status);
+                                    
                                     if (status == 2) {
                                         printf("Capturat!!!\n");
                                         encounterEndFlag = 0;
@@ -139,6 +136,9 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 default:
+                                    kill(childProcess, SIGKILL);
+                                    printf("Has escapado!\n");
+                                    encounterEndFlag = 0;
                                     break;
                             }
                         }
