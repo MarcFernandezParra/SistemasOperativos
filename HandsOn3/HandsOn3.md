@@ -8,7 +8,8 @@ Si no els poséssim, no imprimiría cada missatge en una linia nova.
 ### Activitat 1
 
 El que succeeix es que al executar la SYSCALL amb un paràmetre, aquest paràmetre s'escriurà al kernel log amb la funcio printk.
-
+Però el paràmetre es un apuntador, que no te per què se una adreça de memòria del usuari. Pot ser perfectament una adreça de memòria d'un altre usuari, amb informació d'aquest.
+Llavors un usuari podria obtenir informació d'un altre. Aquesta es la vulnerabilitat.
 
 
 ### Activitat 2
