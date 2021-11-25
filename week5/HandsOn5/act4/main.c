@@ -38,9 +38,9 @@ void throwPokeball(){
 void throwBerry(){
     if(numberOfProb<9){
         numberOfProb ++;
-        printf("S'ha augmentat la probabilitat de captura!\n");
+        printf("%sS'ha augmentat la probabilitat de captura!%s\n", KGRN, KNRM);
     }else{
-        printf("La probabilitat de captura no pot augmentar més.\n");
+        printf("%sLa probabilitat de captura no pot augmentar més.%s\n", KYEL, KNRM);
     }
 }
  
@@ -95,13 +95,14 @@ int main(int argc, char *argv[]) {
                     } else {
 
                         // Main process
-                        printf("Wild pokemon appeared! [%d] >\n", childProcess);
+                        printf("Ash: [%d] --> %sWild pokemon appeared! [%d]%s\n", getpid(), KBLU, childProcess, KCYN);
                         show_pokemon(rand() % 151);
+                        printf("%s", KNRM);
     
                         waitpid(-1, 0, WUNTRACED); // Waits for child to pause
 
                         while (encounterEndFlag == 1) {
-                            printf("P: Throw Pokeball, B:Throw Berry, R:Run > ");
+                            printf("P: Throw Pokeball\nB: Throw Berry\nR: Run\n > ");
                             scanf(" %c", &choice);
                         
                             switch(choice) {
@@ -115,13 +116,13 @@ int main(int argc, char *argv[]) {
                                     status = status >> 8;
                                     
                                     if (status == 2) {
-                                        printf("Capturat!!!\n");
+                                        printf("%sCapturat!!!%s\n", KGRN, KNRM);
                                         encounterEndFlag = 0;
                                     } else if (status == 7) {
-                                        printf("S'ha escapat...\n");
+                                        printf("%sS'ha escapat...%s\n", KBLU, KNRM);
                                         encounterEndFlag = 0;
                                     } else {
-                                        printf("Se ha salido de la bola :peeposad:\n");
+                                        printf("%sSe ha salido de la bola :peeposad:%s\n", KYEL, KNRM);
                                     }
                                     
                                     break;
@@ -135,10 +136,13 @@ int main(int argc, char *argv[]) {
                                     
                                     break;
 
-                                default:
+                                case 'R':
                                     kill(childProcess, SIGKILL);
-                                    printf("Has escapado!\n");
+                                    printf("%sHas escapado!%s\n", KGRN, KNRM);
                                     encounterEndFlag = 0;
+                                    break;
+
+                                default:
                                     break;
                             }
                         }

@@ -70,7 +70,7 @@ int show_pokemon(int position) {
   printf("== Special Defense: %d\n", pokemon_spDefense(pokedex[position]));
   printf("== Speed: %d\n", pokemon_speed(pokedex[position]));
   printf("== Generation: %d\n", pokemon_generation(pokedex[position]));
-  printf("== Legendary: %s\n", (pokemon_generation(pokedex[position]) == 1 ? "Yes" : "No"));
+  printf("== Legendary: %s\n", (pokemon_legendary(pokedex[position]) == 1 ? "Yes" : "No"));
   printf("== Seen: %s\n", (pokemon_seen(pokedex[position]) == 1 ? "Yes" : "No"));
   printf("== Captured: %s\n", (pokemon_captured(pokedex[position]) == 1 ? "Yes" : "No"));
   printf("=============================\n");
