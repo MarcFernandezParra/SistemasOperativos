@@ -1,6 +1,6 @@
 Activitat 1
 
-en el primer, el descriptor del fitxer s'asigna independentment pel pare i pel fill, mentre que en el segon, el fill i el pare tenen el descriptor del fitxer asignat abans de crear el fill, per lo que el fill l'hereda.
+En el primer, el descriptor del fitxer s'asigna independentment pel pare i pel fill, mentre que en el segon, el fill i el pare tenen el descriptor del fitxer asignat abans de crear el fill, per lo que el fill l'hereda.
 Aixó provocarà en el primer cas, el contingut del fitxer sigui matxacat per el segon procés que entri, mentres que el segon cas, cuan l'últim dels dos procesos escrigui, l'altre procés ja haurá escrit, i fará append
 
 Activitat 2
