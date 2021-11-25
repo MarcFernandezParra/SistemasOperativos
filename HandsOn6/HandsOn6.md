@@ -106,3 +106,72 @@ int main(int argc, char *argv[])
 ```
 
 Activitat 6
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <signal.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <errno.h>
+
+ 
+
+int main(int argc, char *argv[])
+
+{
+
+    int fd[2], fd2[2];
+    char s[100];
+    char *p1[] = {"ls", NULL};
+    char *p2[] = {"wc", "-l", NULL};
+
+
+    if (pipe(fd)<0)
+    {
+        perror("Error de creació del pipe fd[]");
+        exit(-1);
+    }
+
+
+    int pid, pid2;
+    switch (pid = fork()){
+    case -1:
+        perror("Error fork()");
+        exit(-2);
+        break;
+    case 0: 
+        close(fd[0]);
+        dup2(fd[1], 1);
+        execvp("ls",p1);    
+    default:
+        if (pipe(fd2)<0)
+        {
+            perror("Error de creació del pipe fd[]");
+            exit(-1);
+        }
+
+        if((pid2 = fork()) == 0){
+                close(fd[1]);
+                close(fd2[0]);//0  es lectura   
+                dup2(fd2[1],1);
+                dup2(fd[0],0);
+                execvp("wc",p2);
+        }else{
+
+                close(fd2[1]);
+                close(fd[0]);
+                close(fd[1]);
+                char car[10];
+                read(fd2[0],&car,sizeof(car));
+                printf("%s\n",car);
+        }
+
+        
+    }
+
+}
+
+```
