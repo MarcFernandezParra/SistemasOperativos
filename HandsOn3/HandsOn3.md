@@ -14,5 +14,5 @@ Llavors un usuari podria obtenir informació d'un altre. Aquesta es la vulnerabi
 
 ### Activitat 2
 
-El que fa el helper.c és afegir codi a la funció original, per que cada cop que es cridi, també fagi altres coses que no feia originalment.
-Que en el nostre cas serà nomès printar un missatge.
+El que fa el helper.c és afegir un hook a una crida de sistema. Aquest hook, el que fa es executar codi extra al fer la crida original.
+En el nostre cas serà nomès printar un missatge, que es algo inofensiu, pero aquest codi injectat podria fer qualsevol cosa, que es una vulnerabilitat clarísima.
