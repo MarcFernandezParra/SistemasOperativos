@@ -4,4 +4,5 @@
 	int show_pokemon(int position);
     int init_pokedex();
     Pokemon get_pokemon(int position);
+    void create_csv();
 #endif // _POKEDEX_H_
