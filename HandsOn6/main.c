@@ -39,15 +39,6 @@ void throwPokeball(){
 void attackPoke(){
 
     srand(time(NULL));
-    int throw = (rand() % 10) + 1;
-    for(int i = 0; i<=numberOfProb; i++){
-        if(probabilities[i] == throw){
-            throw = 2;
-        }
-    }
-    if (throw == 2 || throw == 7) {
-        exit(throw);   
-    }
 }
 
 void endBattle(){
@@ -116,33 +107,66 @@ int main(int argc, char *argv[]) {
                     
                     int turn = rand() % 1;
                     childProcess = fork();                    
-                    int childProcess2 = fork();
+                    int childProcess2;
                     pipe(fd1);
                     pipe(fd2);
+                    
+                    
+                    srand(time(NULL));
+                    random = rand() % 151; 
+                    Pokemon poke1 = get_pokemon(random);
+                    srand(time(NULL));
+                    random = rand() % 151;
+                    Pokemon poke2 = get_pokemon(random);
 
                     if(childProcess == 0){
                         //fill 1
-                        srand(time(NULL));
-                        random = rand() % 151; 
-                        Pokemon poke1 = get_pokemon(random);
                         int hp = pokemon_hp(poke1);
+
                         raise(SIGCONT);
                         close(fd1[1]);
                         close(fd2[0]);
+                        int damage = 0;
 
-                    }else if(childProcess2 == 0){
+                        while(hp!= 0){
+                            if(turn%2 == 0){
+                                damage = (rand() % 20);
+                                write(fd1[0],damage, sizeof(int));
+                            }else{
+                                read(fd2[1], damage, sizeof(int));
+                                hp-=damage;
+                            }
+                            turn ++;
+                        }
+                    }else{
+                        childProcess2= fork();
+                    }
+
+                    if(childProcess2 == 0){
                         //fill 2
-                        srand(time(NULL));
-                        random = rand() % 151;
-                        Pokemon poke2 = get_pokemon(random);
                         int hp = pokemon_hp(poke2);
                         raise(SIGCONT);
                         close(fd1[0]);
                         close(fd2[1]);
+                        int damage =0;
+                        while(hp!= 0){
+                            if(turn%2 == 1){
+                                damage=  (rand() % 20);
+                                write(fd2[0],damage, sizeof(int));
+                            }else{
+                                
+                                read(fd2[1], damage, sizeof(int));
+                                hp-=damage;
+                                
+                            }
+                            turn ++;
+                        }
                     }
+                    
                     pause();
                     pause();
-                    endFlag = 0;
+                    printf("The pokemons are ready to figth...\n");
+                    /*endFlag = 0;
                     while (endFlag == 0)
                     {
                         if(turn == 0){
@@ -158,7 +182,7 @@ int main(int argc, char *argv[]) {
                             }                            
                             turn = 0;
                         }
-                    }
+                    }*/
                     
                     break;
                 
