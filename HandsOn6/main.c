@@ -36,25 +36,6 @@ void throwPokeball(){
     }
 }
 
-void attackPoke(){
-
-    srand(time(NULL));
-}
-
-void endBattle(){
-
-    srand(time(NULL));
-    int throw = (rand() % 10) + 1;
-    for(int i = 0; i<=numberOfProb; i++){
-        if(probabilities[i] == throw){
-            throw = 2;
-        }
-    }
-    if (throw == 2 || throw == 7) {
-        exit(throw);   
-    }
-}
-
 void throwBerry(){
     if(numberOfProb<9){
         numberOfProb ++;
@@ -64,9 +45,6 @@ void throwBerry(){
     }
 }
 
-void finishCombat(){
-    
-}
  
 int main(int argc, char *argv[]) {
 
@@ -103,14 +81,11 @@ int main(int argc, char *argv[]) {
                     break;
 
                 case 'F':
-                
-                    signal(SIGUSR1, attackPoke);
-                    signal(SIGUSR2, endBattle);
-                
-                    int fd1[2], fd2[2], fd3[2];    
+                    endFlag = 0;
                     int random;
                     
-                    int turn = rand() % 1;
+                    int fd1[2], fd2[2], fd3[2];   
+                    int turn = rand() % 2;
                     childProcess = fork();                    
                     int childProcess2;
                     pipe(fd1);
@@ -126,8 +101,6 @@ int main(int argc, char *argv[]) {
 
                     if(childProcess == 0){
                         //fill 1
-                        signal(SIGUSR1, finishCombat);
-
                         raise(SIGCONT);
                         close(fd1[1]);
                         close(fd2[0]);
@@ -163,13 +136,14 @@ int main(int argc, char *argv[]) {
                     
                     }else{
                         childProcess2= fork();
-                        close(fd3[1]);
-                        write(fd3[0], &childProcess2, sizeof(int));
+                        if(childProcess2 != 0){
+                            close(fd3[1]);
+                            write(fd3[0], &childProcess2, sizeof(int));
+                        }
                     }
 
                     if(childProcess2 == 0){
                         //fill 2
-                        signal(SIGUSR1, finishCombat);
 
                         raise(SIGCONT);
                         close(fd1[0]);
