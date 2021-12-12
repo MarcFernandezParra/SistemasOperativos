@@ -63,6 +63,10 @@ void throwBerry(){
         printf("%sLa probabilitat de captura no pot augmentar més.%s\n", KYEL, KNRM);
     }
 }
+
+void finishCombat(){
+    
+}
  
 int main(int argc, char *argv[]) {
 
@@ -99,7 +103,7 @@ int main(int argc, char *argv[]) {
                     break;
 
                 case 'F':
-                    int fd1[2], fd2[2];
+                    int fd1[2], fd2[2], fd3[2];
                     signal(SIGUSR1, attackPoke);
                     signal(SIGUSR2, endBattle);
                     
@@ -110,6 +114,7 @@ int main(int argc, char *argv[]) {
                     int childProcess2;
                     pipe(fd1);
                     pipe(fd2);
+                    pipe(fd3);
                     
                     
                     srand(time(NULL));
@@ -121,51 +126,77 @@ int main(int argc, char *argv[]) {
 
                     if(childProcess == 0){
                         //fill 1
-                        int hp = pokemon_hp(poke1);
+                        signal(SIGUSR1, finishCombat);
 
                         raise(SIGCONT);
                         close(fd1[1]);
                         close(fd2[0]);
+                        close(fd3[0]);
+
+                        read(fd3[1], childProcess2, sizeof(int));
+
+                        int hp = pokemon_hp(poke1);
                         int damage = 0;
 
-                        while(hp!= 0){
-                            if(turn%2 == 0){
-                                damage = (rand() % 20);
+                        while(hp != 0){
+                            printf("%s######## %s [%d/%d]%s", KCYN, pokemon_name(poke1), pokemon_hp(poke1), hp, KNRM);
+
+                            if(turn % 2 == 0) {
+                                damage = rand() % 20;
                                 write(fd1[0],damage, sizeof(int));
-                            }else{
+                                printf("%s######## %s %s---(Send attack with damage(%d))--->%s[%d]%s", KCYN, pokemon_name(poke1), KGRN, damage, KMAG, pokemon_name(poke2), childProcess2, KNRM);
+                            } else {
                                 read(fd2[1], damage, sizeof(int));
-                                hp-=damage;
+                                hp -= damage;
+                                printf("%s######## %s %s---(Recieves attack with damage(%d))--->%s[%d]%s", KCYN, pokemon_name(poke1), KRED, damage, KMAG, pokemon_name(poke2), childProcess2, KNRM);
                             }
+
                             turn ++;
                         }
+
+                        exit(0);
+                    
                     }else{
                         childProcess2= fork();
+                        close(fd3[1]);
+                        write(fd3[0], childProcess2, sizeof(int));
                     }
 
                     if(childProcess2 == 0){
                         //fill 2
-                        int hp = pokemon_hp(poke2);
+                        signal(SIGUSR1, finishCombat);
+
                         raise(SIGCONT);
                         close(fd1[0]);
                         close(fd2[1]);
+                        close(fd3[0]);
+                        close(fd3[1]);
+
+                        int hp = pokemon_hp(poke2);
                         int damage =0;
-                        while(hp!= 0){
-                            if(turn%2 == 1){
-                                damage=  (rand() % 20);
+
+                        while(hp != 0) {
+                            printf("%s######## %s [%d/%d]%s", KMAG, pokemon_name(poke2), pokemon_hp(poke2), hp, KNRM);
+                            
+                            if(turn % 2 == 1) {
+                                damage = rand() % 20;
                                 write(fd2[0],damage, sizeof(int));
-                            }else{
-                                
-                                read(fd2[1], damage, sizeof(int));
-                                hp-=damage;
-                                
+                                printf("%s######## %s %s---(Send attack with damage(%d))--->%s[%d]%s", KMAG, pokemon_name(poke2), KGRN, damage, KCYN, pokemon_name(poke1), childProcess, KNRM);
+                            } else {
+                                read(fd1[1], damage, sizeof(int));
+                                hp -= damage;
+                                printf("%s######## %s %s---(Recieves attack with damage(%d))--->%s[%d]%s", KMAG, pokemon_name(poke2), KRED, damage, KCYN, pokemon_name(poke1), childProcess, KNRM);
                             }
+
                             turn ++;
                         }
+
+                        exit(0);
                     }
                     
                     pause();
                     pause();
-                    printf("The pokemons are ready to figth...\n");
+                    printf("[%d] The pokemons are ready to figth...\n", getpid());
                     /*endFlag = 0;
                     while (endFlag == 0)
                     {
