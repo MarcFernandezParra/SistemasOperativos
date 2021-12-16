@@ -182,6 +182,7 @@ int main(int argc, char *argv[]) {
                     pause();
                     pause();
                     printf("[%d] The pokemons are ready to figth...\n", getpid());
+                    fflush(stdout);
                     wait(NULL);
                     wait(NULL);
                     
