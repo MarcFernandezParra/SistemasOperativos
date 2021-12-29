@@ -26,10 +26,24 @@ awk 'BEGIN{FS=OFS=","} {gsub(/\,/, ";")} 1' pokedex.csv
 ```
 # Activitat 5
 ```awk
- awk -F, ' \
-        BEGIN { print "{\npokedex:[\n" } \
-        { print "{\n#:", $1,",\nName:",$2, ",\nType 1:", $3, ",\nType 2:", $4,",\nTotal:"$5, ",\nHp:", $6,",\nAttack:",$7,",\nDefense:"$8,",\nSp. Atk:",$9,",\nSp. Def:"$10,",\nSpeed:"$11,",\nGeneration:",$12,",\nLegendary", (($13 ==1) ? "True" : "False"), "\n}" }
-        END { print "]\n}"}' pokedex.csv     
+awk -F, ' \
+BEGIN { print "{\n \t \"pokedex\":[" } \
+{ print "\t { \
+  \n \t\t \"#\":",$1,
+",\n \t\t \"Name\":\"",$2,
+",\n \t\t \"Type 1\":",$3,
+",\n \t\t \"Type 2\":",$4,
+",\n \t\t \"Total\":"$5,
+",\n \t\t \"Hp\":", $6,
+",\n \t\t \"Attack\":",$7,
+",\n \t\t \"Defense\":"$8,
+",\n \t\t \"Sp. Atk\":",$9,
+",\n \t\t \"Sp. Def\":"$10,
+",\n \t\t \"Speed\":"$11,
+",\n \t\t \"Generation\":",$12,
+",\n \t\t \"Legendary\":",(($13 ==1) ? "True" : "False"),
+"\n \t }" }
+END { print "\t ]\n}"}' pokedex.csv
 ```
 
 # Activitat 7
