@@ -32,3 +32,28 @@ awk 'BEGIN{FS=OFS=","} {gsub(/\,/, ";")} 1' pokedex.csv
         END { print "]\n}"}' pokedex.csv     
 ```
 
+# Activitat 7
+```bash
+#!/bin/bash
+
+if [ -f ./memlliure.lst ]; then
+	echo "memlliure.lst ja existeix. S'acaba el programa"
+	exit 0
+fi
+
+duracio=${1:-"60"}
+
+printf "%20s \t %12s \t %12s \t %12s \n" "Time" "MemFree" "MemTotal" "MemAvailable" >> memlliure.lst
+
+for (( i=0; i< duracio; i++))
+do
+
+	timestamp=$(date '+%m/%d/%Y:%H:%M:%S')
+	memTotal=$(grep -m 1 "MemTotal" /proc/meminfo | awk '{ print $2 }')
+	memLliure=$(grep -m 1 "MemFree" /proc/meminfo | awk '{ print $2 }')
+	memDisponible=$(grep -m 1 "MemAvailable" /proc/meminfo | awk '{ print $2 }')
+
+	printf "%20s \t %12s \t %12s \t %12s \n" $timestamp $memLliure $memTotal $memDisponible >> memlliure.lst
+	sleep 1
+done
+```
